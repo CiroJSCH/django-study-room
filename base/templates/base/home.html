@@ -11,6 +11,7 @@
       </h5>
       <small>{{ room.topic.name }}</small>
       <a href="{% url 'edit-room' room.id %}">Edit Room</a>
+      <a href="{% url 'delete-room' room.id %}">Delete Room</a>
       <hr>
     {% endfor %}
   </div>
