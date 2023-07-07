@@ -61,19 +61,22 @@ def register_user(request):
 
 
 def home(request):
-    q = request.GET.get('q')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) | Q(description__icontains=q)) if q else Room.objects.all()
 
     topics = Topic.objects.all()
     rooms_count = rooms.count()
-    return render(request, "base/home.html", {"rooms": rooms, "topics": topics, "rooms_count": rooms_count})
+
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
+
+    return render(request, "base/home.html", {"rooms": rooms, "topics": topics, "rooms_count": rooms_count, "room_messages": room_messages})
 
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all().order_by("-created")
+    room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == "POST":
         message = Message.objects.create(
