@@ -16,7 +16,14 @@
                 </path>
               </svg>
             </a>
-            <h3>Create Study Room</h3>
+            <h3>
+              {% if is_update %}
+                Update
+              {% else %}
+                Create
+              {% endif %}
+              Study Room
+            </h3>
           </div>
         </div>
         <div class="layout__body">
@@ -45,7 +52,14 @@
             </div>
             <div class="form__action">
               <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>
-              <button class="btn btn--main" type="submit">Create Room</button>
+              <button class="btn btn--main" type="submit">
+                {% if is_update %}
+                  Update
+                {% else %}
+                  Create
+                {% endif %}
+                Room
+              </button>
             </div>
           </form>
         </div>

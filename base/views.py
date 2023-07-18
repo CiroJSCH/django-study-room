@@ -125,6 +125,9 @@ def create_room(request):
 
 @login_required(login_url='login')
 def update_room(request, pk):
+
+    is_update = True
+
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
 
@@ -142,7 +145,8 @@ def update_room(request, pk):
         room.save()
         return redirect("home")
 
-    context = {"form": form, "topics": topics, "room": room}
+    context = {"form": form, "topics": topics,
+               "room": room, "is_update": is_update}
     return render(request, "base/room_form.html", context)
 
 
