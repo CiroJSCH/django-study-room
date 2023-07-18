@@ -174,3 +174,8 @@ def delete_message(request, pk):
         deleted_message.delete()
         return redirect("home")
     return render(request, "base/delete.html", {"obj": deleted_message})
+
+
+@login_required(login_url='login')
+def update_user(request):
+    return render(request, "base/update_user.html")
